@@ -40,14 +40,36 @@ export async function searchProducts(
   return response.data;
 }
 
+// Get products by category
+export async function getProductsByCategory(
+  category: string,
+  limit: number,
+  skip: number,
+  signal?: AbortSignal
+): Promise<ProductResponse> {
+  const response = await api.get<ProductResponse>(
+    `/products/category/${encodeURIComponent(
+      category
+    )}?limit=${limit}&skip=${skip}`,
+    {
+      signal,
+    }
+  );
+
+  return response.data;
+}
+
 // Get single product
 export async function getProduct(
   id: number,
   signal?: AbortSignal
 ): Promise<Product> {
-  const response = await api.get<Product>(`/products/${id}`, {
-    signal,
-  });
+  const response = await api.get<Product>(
+    `/products/${id}`,
+    {
+      signal,
+    }
+  );
 
   return response.data;
 }
